@@ -1,9 +1,24 @@
 import React,{useState} from 'react'
+import jwt_decode from 'jwt-decode'
+import { TailSpin } from 'react-loader-spinner';
 import './Signup.css'
 import { useNavigate } from 'react-router-dom';
 
 const Form = () =>{
-    const [user, setUser] = useState({teacher:'',gender:'',dob:'',phn:'',address:'',internship:''});
+    const [Loading,setLoading] = useState(false)
+
+    const token = localStorage.getItem('user')
+    const decoded = jwt_decode(token)
+    const navigate = useNavigate()
+
+
+    const [user, setUser] = useState({
+        teacher:decoded.user.teacher,
+        gender:decoded.user.gender,
+        dob:'',
+        phn:decoded.user.phn,
+        address:decoded.user.address,
+        internship:decoded.user.internship});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -13,11 +28,8 @@ const Form = () =>{
           }));
     };
 
-    const token = localStorage.getItem('user')
-    const navigate = useNavigate()
-
     const handleSubmit = async (e) => {
-        console.log(user)
+        setLoading(true)
         e.preventDefault();
 
         try {
@@ -33,13 +45,17 @@ const Form = () =>{
           const data = await response.json()
     
           if (response.ok) {
-            console.log(data.message);
+            localStorage.setItem('user',JSON.stringify(data.auth))
+            console.log(data.message,data.auth);
+            setLoading(false)
             navigate('/dashboard')
           } else {
             console.log(data.message);
+            setLoading(false)
           }
         } catch (error) {
           console.error('Error:', error);
+          setLoading(false)
         }
     };
 
@@ -50,6 +66,20 @@ const Form = () =>{
 
 
     return(
+        <div>
+        {Loading? (
+          <div className='Tailspin'>
+          <TailSpin
+          color='#00BFFF'
+          height="200"
+          width="200"
+          ariaLabel="tail-spin-loading"
+          radius="2"
+          wrapperClass=""
+          />
+          </div>
+        ):(
+
         <form onSubmit={handleSubmit}>
             <div className="main">
 
@@ -77,7 +107,7 @@ const Form = () =>{
                             <li>
                                 <div className="input-box">
                                         <span className="txt">DOB: </span>
-                                        <input type="date" pattern="\d{4}-\d{2}-\d{2}" name="dob" value={user.dob} onChange={handleChange} required placeholder="yyyy-mm-dd"/>                              
+                                        <input type="date" name="dob" value={user.dob} onChange={handleChange} required placeholder="yyyy-mm-dd"/>                              
                                 </div>
                             </li>
                             <li>
@@ -105,7 +135,9 @@ const Form = () =>{
                         </ul>
                 </div>
             </div>
-        </form>
+        </form>)
+        }
+        </div>
     )
 }
 

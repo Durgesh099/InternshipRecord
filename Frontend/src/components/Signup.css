@@ -89,3 +89,13 @@ li{
 .ul{
     text-align: left;
 }
+
+.Tailspin{
+    background-color: #ffffffb7;
+    height: 350px;
+    width: 500px;
+    margin: 150px auto;
+    display: flex;
+    justify-content: center;
+    padding-top: 160px;
+}

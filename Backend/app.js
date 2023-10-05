@@ -27,7 +27,6 @@ function generateJWT(user){
 function verifyToken(req,res,next){
   const token = req.headers['authorization']
   if(typeof token!== 'undefined'){
-    console.log(token)
       req.token = token
       next()
   }else{
@@ -73,7 +72,6 @@ app.post('/signup', (req, res) => {
           res.status(500).json({ error: 'Internal Server Error' });
           } else {
             delete user.pass, delete user.id
-            console.log(results)
             const token = generateJWT(user)
             res.status(201).json({ message: 'User added successfully',auth:token });
           }
@@ -84,7 +82,6 @@ app.post('/signup', (req, res) => {
 
 app.patch('/dashboard/form',verifyToken,(req,res)=>{
   const {teacher,gender,dob,phn,address,internship} = req.body;
-
   jwt.verify(req.token,secretkey,(err,decoded)=>{
     if(err){
         res.status(403).json({message:'Invalid token'})
@@ -95,7 +92,19 @@ app.patch('/dashboard/form',verifyToken,(req,res)=>{
               console.error('Error adding user:', error);
               res.status(500).json({ error: 'Internal Server Error' });
             } else {
-              res.status(200).json({ message: 'User updated successfully' });
+              pool.query('SELECT * FROM students WHERE roll = ? AND divi = ? AND course = ?', 
+              [decoded.user.roll, decoded.user.divi, decoded.user.course], (error, results) => {
+                if (error) {
+                  console.log('Error fetching user by roll:');
+                  res.status(500).json({ error: 'Internal Server Error' });
+                } 
+                if(results.length > 0){
+                  const user = results[0]
+                  delete user.pass, delete user.id
+                  const newToken = generateJWT(user)
+                  res.status(200).json({ message: 'User updated successfully' ,auth:newToken});
+                }
+              })
             }
         });
     }

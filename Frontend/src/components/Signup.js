@@ -1,9 +1,12 @@
 import React, {useContext, useState} from 'react'
 import {AuthContext} from '../context/auth-context'
+import { TailSpin } from 'react-loader-spinner';
 import './Signup.css'
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () =>{
+    const [Loading, setLoading]=useState(false)
+
     const [user, setUser] = useState({course:'',divi:'',name:'',email:'',pass:'',roll:''});
 
     const handleChange = (e) => {
@@ -15,6 +18,7 @@ const Signup = () =>{
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
+        setLoading(true)
         e.preventDefault();
 
         try {
@@ -36,14 +40,30 @@ const Signup = () =>{
                 console.log(data.error);
           }
         } catch (error) {
-          console.error('Error:',error);
+            console.error('Error:',error);
         }
+        setLoading(false)
     };
 
 
     const signupDisable = !user.course || !user.divi || !user.email || !user.name || !user.pass || !user.roll
 
+
+   
+    
+
     return(
+        <div>
+        {Loading? (
+            <TailSpin
+            color='#00BFFF'
+            height="200"
+            width="200"
+            ariaLabel="tail-spin-loading"
+            radius="2"
+            wrapperClass=""
+            />
+        ) : (
         <form onSubmit={handleSubmit}>
             <div className="main">
                 <div className="wrapper">
@@ -52,6 +72,7 @@ const Signup = () =>{
                         <div className="input-box">
                                 <span className="txt">Course: </span>
                                 <select name="course" value={user.course} onChange={handleChange} required>
+                                    <option defaultValue="none">Select an option</option>
                                     <option name="FE" value="FE">FE</option>
                                     <option name="SE" value="SE">SE</option>
                                     <option name="TE" value="TE">TE</option>
@@ -61,6 +82,7 @@ const Signup = () =>{
                         <div className="input-box">
                                 <span className="txt">Division: </span>
                                 <select name="divi" value={user.divi} onChange={handleChange} required>
+                                    <option defaultValue="none">Select an option</option>
                                     <option name="A" value="A">A</option>
                                     <option name="B" value="B">B</option>
                                 </select>
@@ -101,7 +123,8 @@ const Signup = () =>{
                         </ul>
                 </div>
             </div>
-        </form>
+        </form>)}
+        </div>
     )
 }
 

@@ -1,9 +1,11 @@
 import React , {useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
+import {TailSpin} from 'react-loader-spinner'
 import './Login.css'
 import { AuthContext } from '../context/auth-context'
 
 const Login = () =>{
+    const [Loading, setLoading]=useState(false)
 
     const [user, setUser] = useState({email:'' ,pass:''})
 
@@ -17,6 +19,7 @@ const Login = () =>{
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
+        setLoading(true)
         e.preventDefault()
         try {
           const response = await fetch('http://localhost:3000/', {
@@ -29,7 +32,7 @@ const Login = () =>{
           const data = await response.json()
           if(response.ok){
               localStorage.setItem('user',JSON.stringify(data.auth))
-              console.log(data.message)
+              console.log(data.message,data.auth)
               navigate('/dashboard')
               return auth.login()
           }else{
@@ -39,7 +42,7 @@ const Login = () =>{
         } catch (error) {
           console.error('Error:', error)
         }
-
+        setLoading(false)
       }
 
 
@@ -48,7 +51,21 @@ const Login = () =>{
 //Display ELements here
 
     return(
+      <div>
+        {Loading? (
+          <div className='Tailspin'>
+          <TailSpin
+          color='#00BFFF'
+          height="200"
+          width="200"
+          ariaLabel="tail-spin-loading"
+          radius="2"
+          wrapperClass=""
+          />
+          </div>
+        ):(
         <div className="wrapper">
+
             <form onSubmit={handleSubmit}>
                 <h1>Login</h1>
                 <div className="input-box">
@@ -63,6 +80,8 @@ const Login = () =>{
                     {!loginDisable && <button type="submit" className="btn" onClick={handleSubmit}>Login</button>}
                 </div>
             </form>
+        </div>)
+        }
         </div>
     )
 }
