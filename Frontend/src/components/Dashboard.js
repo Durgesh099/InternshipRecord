@@ -24,11 +24,9 @@ const Dashboard = () => {
             <h2>Gender : {user.gender}</h2>
             <h2>Branch : Computer Engineering</h2>
             <h2>Email : {user.email}</h2>
-            <h2>Date of Birth : {user.dob}</h2>
             <h2>Teacher : {user.teacher}</h2>
             <h2>Phone No. : {user.phn}</h2>
             <h2>Address : {user.address}</h2>
-            <h2>Internships : {user.internship}</h2>
             <Link to='/dashboard/form' className='link'>Update Details</Link>
             </ul>
         </div>

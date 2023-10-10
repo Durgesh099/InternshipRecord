@@ -15,10 +15,8 @@ const Form = () =>{
     const [user, setUser] = useState({
         teacher:decoded.user.teacher,
         gender:decoded.user.gender,
-        dob:'',
         phn:decoded.user.phn,
-        address:decoded.user.address,
-        internship:decoded.user.internship});
+        address:decoded.user.address});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -106,12 +104,6 @@ const Form = () =>{
                             </li>
                             <li>
                                 <div className="input-box">
-                                        <span className="txt">DOB: </span>
-                                        <input type="date" name="dob" value={user.dob} onChange={handleChange} required placeholder="yyyy-mm-dd"/>                              
-                                </div>
-                            </li>
-                            <li>
-                                <div className="input-box">
                                         <span className="txt">Phone no.: </span>
                                         <input type="text" name="phn" value={user.phn} onChange={handleChange} required/>
                                 </div>
@@ -122,13 +114,6 @@ const Form = () =>{
                                         <input type="text" name="address" value={user.address} onChange={handleChange} required/>
                                 </div>
                             </li> 
-                            <li>
-                                <div className="input-box">
-                                        <span className="txt">Internships: </span>
-                                        <input type="text" name="internship" value={user.internship} onChange={handleChange} required/>
-                                </div>
-                            </li>
-                            <p>*Internship can be completed/on-going. You can input multiple internships. Insert 'NONE' if not eligible.*</p>
                             <li>
                                 <button type="submit" className="btn" name='save'>Submit</button>
                             </li> 

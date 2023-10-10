@@ -7,10 +7,21 @@ import Navigation from './Navigation';
 import Form from './components/Form';
 import {AuthContext} from './context/auth-context'
 import './App.css'
+import Admin from './components/Admin';
+import AdminPage from './components/AdminPage'
 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+
+  const adminLogin = useCallback(()=>{
+    setIsAdminLoggedIn(true)
+  }, [])
+
+  const adminLogout = useCallback(()=>{
+    setIsAdminLoggedIn(false)
+  }, [])
 
   const login = useCallback(() => {
     setIsLoggedIn(true);
@@ -25,13 +36,23 @@ function App() {
   if (isLoggedIn) {
     routes = (
       <Routes>
+          <Route path="/admin" element={<Admin/>}/>
           <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/dashboard/form" element={<Form/>}/>
       </Routes>
     );
+  }
+  else if (isAdminLoggedIn){
+    routes = (
+      <Routes>
+          <Route path="/adminPage" element={<AdminPage/>}/>
+          <Route path="/admin" element={<Admin/>}/>
+      </Routes>
+    )
   } else {
     routes = (
       <Routes>
+          <Route path="/admin" element={<Admin/>}/>
           <Route path="/" exact element={<Login/>} />
           <Route path="/signup" element={<Signup/>} />
         </Routes>
@@ -42,7 +63,8 @@ function App() {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout, 
+        isAdminLoggedIn: isAdminLoggedIn ,adminLogin: adminLogin, adminLogout: adminLogout}}
     >
       <Router>
         <Navigation />

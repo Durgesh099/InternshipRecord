@@ -8,15 +8,19 @@ const Navigation = () => {
 
     const Logout = ()=>{
         localStorage.removeItem('user')
-        return auth.logout()
+        return (
+            auth.logout(),
+            auth.adminLogout()
+        )
     }
 
     return(
         <div className='nav-bar'>
+            {!auth.isAdminLoggedIn && <Link to='/admin' className='navlink'>Admin</Link>}
             {auth.isLoggedIn && <Link to='/dashboard' className='navlink'>Dashboard</Link>}
-            {auth.isLoggedIn && <Link to='/' className='navlink' onClick={Logout}>Logout</Link>}
-            {!auth.isLoggedIn && <Link to='/' className='navlink'>Login</Link>}
-            {!auth.isLoggedIn && <Link to='/signup' className='navlink'>Signup</Link>}
+            {(auth.isLoggedIn || auth.isAdminLoggedIn) && <Link to='/' className='navlink' onClick={Logout}>Logout</Link>}
+            {!auth.isLoggedIn && !auth.isAdminLoggedIn && <Link to='/' className='navlink'>Login</Link>}
+            {!auth.isLoggedIn && !auth.isAdminLoggedIn && <Link to='/signup' className='navlink'>Signup</Link>}
         </div>
     )
 }

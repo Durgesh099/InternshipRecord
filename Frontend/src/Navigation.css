@@ -1,7 +1,7 @@
 .nav-bar{
     height: 70px;
     width: 100%;
-    background-color: rgba(229, 236, 247, 0.863);
+    background-color: white;
     display: flex;
     justify-content: center
 }
@@ -16,5 +16,5 @@
 }
 
 .navlink:hover{
-   color: rgb(122, 122, 122);
+   color: rgb(175, 173, 173);
 }
