@@ -18,6 +18,6 @@ router.post('/signup',
 ],
 usersControllers.signup)
 
-router.post('/login',usersControllers.login)
+router.post('/',usersControllers.login)
 
 module.exports = router

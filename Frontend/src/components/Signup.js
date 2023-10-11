@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const Signup = () =>{
     const [Loading, setLoading]=useState(false)
 
-    const [user, setUser] = useState({course:'',divi:'',name:'',email:'',pass:'',roll:''});
+    const [user, setUser] = useState({course:'',divi:'',name:'',email:'',pass:'',roll:'',teacher:'',gender:'',phn:'',address:''});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,12 +32,12 @@ const Signup = () =>{
     
           const data = await response.json()
           if (response.ok) {
-                localStorage.setItem('user',JSON.stringify(data.auth))
-                console.log(data.message)
+                console.log(data.user)
+                localStorage.setItem('token',data.token)
                 navigate('/dashboard')
                 return auth.login()
           } else {
-                console.log(data.error);
+                console.log(data.message);
           }
         } catch (error) {
             console.error('Error:',error);
@@ -55,6 +55,7 @@ const Signup = () =>{
     return(
         <div>
         {Loading? (
+            <div className='Tailspin'>
             <TailSpin
             color='#00BFFF'
             height="200"
@@ -63,6 +64,7 @@ const Signup = () =>{
             radius="2"
             wrapperClass=""
             />
+            </div>
         ) : (
         <form onSubmit={handleSubmit}>
             <div className="main">
@@ -105,6 +107,35 @@ const Signup = () =>{
                                         <input type="text" name="roll" value={user.roll} onChange={handleChange} required/>
                                 </div>
                             </li>
+                            <li>
+                                <div className="input-box">
+                                        <span className="txt">Teacher: </span>
+                                        <input type="text" name="teacher" value={user.teacher} onChange={handleChange} required/>
+                                </div>
+                            </li>
+                
+                            <li>
+                                <div className="input-box">
+                                        <span className="txt">Gender: </span>
+                                        <select name="gender" value={user.gender} onChange={handleChange} required>
+                                            <option defaultValue="none">Select an Option</option>
+                                            <option name="Male">Male</option>
+                                            <option name="Female">Female</option>
+                                        </select>
+                                </div>
+                            </li>
+                            <li>
+                                <div className="input-box">
+                                        <span className="txt">Phone no.: </span>
+                                        <input type="text" name="phn" value={user.phn} onChange={handleChange} required/>
+                                </div>
+                            </li>
+                            <li>
+                                <div className="input-box">
+                                        <span className="txt">Address: </span>
+                                        <input type="text" name="address" value={user.address} onChange={handleChange} required/>
+                                </div>
+                            </li> 
                             <li>
                                 <div className="input-box">
                                         <span className="txt">Email: </span>

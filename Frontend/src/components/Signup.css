@@ -1,7 +1,7 @@
 .btn{
     height: 50px;
     background: white;
-    width:100%;
+    width:75%;
     border:20px rgb(255, 255, 255);
     border-radius: 20px;
     font-size: larger;
@@ -13,7 +13,7 @@
 
 .wrapper
 {
-    width: 50%;
+    width: max-content;
     text-align: center;
     backdrop-filter: blur(30px);
     border-radius: 40px;
@@ -72,18 +72,18 @@ li{
 }
 
 .link{
-    color: black;
+    color: rgb(240, 239, 245);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-decoration: none;
-    font-size: x-large;
-    border: 1px solid black;
-    border-radius: 50px;
-    padding: 5px 30px;
-    background-color: white;
+    font-size: large;
+    padding: 5px 10px;
+    border: 1px solid white;
+    margin-right: 20px;
 }
 
 .link:hover{
-    color: white;
-    background-color: rgb(28, 27, 27);
+    color: black;
+    border: 1px solid black;
 }
 
 .ul{
@@ -98,4 +98,22 @@ li{
     display: flex;
     justify-content: center;
     padding-top: 160px;
+}
+
+.span{
+    font-size: 26px;
+    color: #0e0d0d;
+}
+
+.wrapperFORM
+{
+    border: 2px solid;
+    border:2px solid rgba(255, 255, 255 0.2);
+    color: white;
+    margin: 50px auto;
+    width: 600px;
+    backdrop-filter: blur(30px);
+    border-radius: 40px;
+    box-shadow:0 0 10px;
+    padding: 30px 40px;
 }

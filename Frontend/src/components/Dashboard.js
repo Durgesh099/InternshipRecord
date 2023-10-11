@@ -1,33 +1,58 @@
 import React, { useEffect, useState } from 'react'
-import jwt_decode from 'jwt-decode'
 import { Link } from 'react-router-dom'
+import jwt_decode from 'jwt-decode'
 import './Signup.css'
 
 const Dashboard = () => {
+    const [radio, setRadio] = useState(false)
     const [user, setUser] = useState('')
 
     useEffect(()=>{
-        const token = localStorage.getItem('user')
+        const token = localStorage.getItem('token')
         if(token){
             const decoded = jwt_decode(token)
             setUser(decoded.user)
         }
     },[])
 
+    function handleChange(e){
+        setRadio(e.target.value)
+    }
+
     return(
         <div className='wrapper'>
             <ul className='ul'>
-            <h2>Name : {user.name}</h2>
-            <h2>Roll No. : {user.roll}</h2>
-            <h2>Division : {user.divi}</h2>
-            <h2>Year : {user.course}</h2>
-            <h2>Gender : {user.gender}</h2>
-            <h2>Branch : Computer Engineering</h2>
-            <h2>Email : {user.email}</h2>
-            <h2>Teacher : {user.teacher}</h2>
-            <h2>Phone No. : {user.phn}</h2>
-            <h2>Address : {user.address}</h2>
-            <Link to='/dashboard/form' className='link'>Update Details</Link>
+            <center><h1>Dashboard</h1></center>
+            <h2>Name : <span className='span'>{user.name}</span></h2>
+            <h2>Roll No. : <span className='span'>{user.roll}</span></h2>
+            <h2>Division : <span className='span'>{user.divi}</span></h2>
+            <h2>Year : <span className='span'>{user.course}</span></h2>
+            <h2>Gender : <span className='span'>{user.gender}</span></h2>
+            <h2>Branch : <span className='span'>Computer Engineering</span></h2>
+            <h2>Email : <span className='span'>{user.email}</span></h2>
+            <h2>Teacher : <span className='span'>{user.teacher}</span></h2>
+            <h2>Phone No. : <span className='span'>{user.phn}</span></h2>
+            <h2>Address : <span className='span'>{user.address}</span></h2>
+            <h2>Internship : 
+                <input 
+                 id='yesOption'
+                 type='radio' 
+                 name='radio'
+                 checked={radio === 'Yes'}
+                 onChange={handleChange} 
+                 value="Yes"/>Yes{"  "}  
+                <input 
+                 id='noOption' 
+                 type='radio' 
+                 name='radio' 
+                 checked={radio === "No"}
+                 onChange={handleChange} 
+                 value="No"/>No
+            </h2>
+            {radio ==='Yes' && <h2><center>
+                <Link to='/dashboard/company' className='link'>Company Details</Link>
+                <Link className='link'>Internship Details</Link>
+            </center></h2>}
             </ul>
         </div>
     )

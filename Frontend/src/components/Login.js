@@ -31,8 +31,8 @@ const Login = () =>{
           });
           const data = await response.json()
           if(response.ok){
-              localStorage.setItem('user',JSON.stringify(data.auth))
-              console.log(data.message,data.auth)
+              console.log(data.message,data.token)
+              localStorage.setItem('token',data.token)
               navigate('/dashboard')
               return auth.login()
           }else{

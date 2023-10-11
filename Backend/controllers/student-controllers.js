@@ -1,6 +1,13 @@
 const {validationResult} = require('express-validator')
 const HttpError = require('../models/http-error')
 const User = require('../models/student')
+const jwt = require('jsonwebtoken')
+const secretkey = 'this-key-is-seceret!'
+
+function generateJWT(user){
+    return jwt.sign({user},secretkey,{expiresIn:"1h"})
+}
+
 
 const signup = async (req,res,next)=>{
     const error = validationResult(req)
@@ -33,16 +40,19 @@ const signup = async (req,res,next)=>{
         teacher,
         gender,
         phn,
-        address
+        address,
+        cid: []
     })
     try{
         await createdUser.save()
+        delete createdUser.pass
+        token = generateJWT(createdUser)
     } catch(err){
         const error = new HttpError('Signing Up failed, please try again.',500)
         return next(error)
     }
 
-    res.status(201).json({user:createdUser.toObject({getters:true})})
+    res.status(201).json({user:createdUser.toObject({getters:true}), token:token})
 }
 
 const login = async (req,res,next)=>{
@@ -60,9 +70,11 @@ const login = async (req,res,next)=>{
         const error = new HttpError('Invalid credentials, could not log you in.',401)
         return next(error)
     }
-
-    res.json({message: 'Logged In'})
+    delete existingUser.pass
+    const token = generateJWT(existingUser)
+    res.json({message: 'Logged In',token:token})
 }
+
 
 exports.signup = signup
 exports.login = login

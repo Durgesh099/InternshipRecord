@@ -11,7 +11,8 @@ const studentSchema = new Schema({
     teacher: {type:String, required:true},
     gender: {type:String, required:true},
     phn: {type:String, required:true},
-    address: {type:String, required:true}
+    address: {type:String, required:true},
+    cid: [{type: mongoose.Types.ObjectId, required:true, ref:'Company'}]
 })
 
 module.exports = mongoose.model('User',studentSchema)

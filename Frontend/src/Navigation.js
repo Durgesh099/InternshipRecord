@@ -7,7 +7,7 @@ const Navigation = () => {
     const auth = useContext(AuthContext);
 
     const Logout = ()=>{
-        localStorage.removeItem('user')
+        localStorage.removeItem('token')
         return (
             auth.logout(),
             auth.adminLogout()

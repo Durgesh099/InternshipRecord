@@ -4,11 +4,12 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Dashboard from './components/Dashboard';
 import Navigation from './Navigation';
-import Form from './components/Form';
 import {AuthContext} from './context/auth-context'
 import './App.css'
 import Admin from './components/Admin';
 import AdminPage from './components/AdminPage'
+import Internship from './components/Forms/Internship'
+import Company from './components/Forms/Company'
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
       <Routes>
           <Route path="/admin" element={<Admin/>}/>
           <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/dashboard/form" element={<Form/>}/>
+          <Route path="/dashboard/company" element={<Company/>}/>
       </Routes>
     );
   }
