@@ -5,5 +5,4 @@ const router = express.Router()
 
 router.post('/company',companyControllers.company)
 
-
 module.exports = router

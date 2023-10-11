@@ -1,6 +1,7 @@
 import React , {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import {TailSpin} from 'react-loader-spinner'
+import jwt_decode from 'jwt-decode'
 import '../Signup.css'
 
 const Company = () =>{
@@ -20,17 +21,25 @@ const Company = () =>{
         setLoading(true)
         e.preventDefault()
         try {
-          const response = await fetch('http://localhost:3000/dashboard/company', {
+            const token = localStorage.getItem('token')
+            let id
+            if(token){
+                const decoded = jwt_decode(token)
+                id = decoded.user.id
+            }
+            const userWithId = {...user,id:id}
+
+            const response = await fetch('http://localhost:3000/dashboard/company', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(user),
+            body: JSON.stringify(userWithId),
           });
           const data = await response.json()
           if(response.ok){
-              console.log(data.company)
-              navigate('/dashboard')
+            console.log(data.company)
+            navigate('/dashboard')
           }else{
             console.log(data.message)
           }

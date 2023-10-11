@@ -46,7 +46,7 @@ const signup = async (req,res,next)=>{
     try{
         await createdUser.save()
         delete createdUser.pass
-        token = generateJWT(createdUser)
+        token = generateJWT(createdUser.toObject({getters:true}))
     } catch(err){
         const error = new HttpError('Signing Up failed, please try again.',500)
         return next(error)
@@ -71,7 +71,7 @@ const login = async (req,res,next)=>{
         return next(error)
     }
     delete existingUser.pass
-    const token = generateJWT(existingUser)
+    const token = generateJWT(existingUser.toObject({getters:true}))
     res.json({message: 'Logged In',token:token})
 }
 
