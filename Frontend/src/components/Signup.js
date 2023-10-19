@@ -5,6 +5,9 @@ import './Signup.css'
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () =>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('company')
+
     const [Loading, setLoading]=useState(false)
 
     const [user, setUser] = useState({course:'',divi:'',name:'',email:'',pass:'',roll:'',teacher:'',gender:'',phn:'',address:''});

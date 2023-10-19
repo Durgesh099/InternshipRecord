@@ -8,6 +8,7 @@ const Navigation = () => {
 
     const Logout = ()=>{
         localStorage.removeItem('token')
+        localStorage.removeItem('company')
         return (
             auth.logout(),
             auth.adminLogout()

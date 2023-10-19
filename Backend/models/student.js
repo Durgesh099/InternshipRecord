@@ -12,7 +12,7 @@ const studentSchema = new Schema({
     gender: {type:String, required:true},
     phn: {type:String, required:true},
     address: {type:String, required:true},
-    cid: [{type: mongoose.Types.ObjectId, required:true, ref:'Company'}]
+    iid:[{type:mongoose.Types.ObjectId,required:true,ref:'Internship'}]
 })
 
 module.exports = mongoose.model('User',studentSchema)

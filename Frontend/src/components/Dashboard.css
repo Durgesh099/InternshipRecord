@@ -1,0 +1,45 @@
+.wrapper1
+{
+    width: max-content;
+    text-align: center;
+    background-color: rgb(245, 243, 243);
+    border-radius: 40px;
+    box-shadow:0 2px 10px white;
+    margin: 100px auto;
+    border: 2px solid rgba(255, 255, 255 0.2);
+    align-self: center;
+    color: rgb(81, 81, 81);
+    padding-bottom: 30px;
+}
+
+.span{
+    color: rgb(122, 2, 215)
+}
+
+.header{
+    background-color: rgb(140, 20, 253);
+    color: black;
+    display: flex;
+    justify-content: center;
+    border-top-right-radius: inherit;
+    border-top-left-radius: inherit;
+}
+
+.body{
+    padding-right: 30px;
+}
+
+.link{
+    color: rgb(81, 81, 81);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-decoration: none;
+    font-size: x-large;
+    padding: 5px 100px;
+    border: 1px solid rgb(81, 81, 81);
+    margin-right: 20px;
+}
+
+.link:hover{
+    color: white;
+    background-color: rgb(174, 172, 174);
+}

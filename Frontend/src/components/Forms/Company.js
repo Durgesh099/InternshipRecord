@@ -4,16 +4,16 @@ import {TailSpin} from 'react-loader-spinner'
 import jwt_decode from 'jwt-decode'
 import '../Signup.css'
 
+
 const Company = () =>{
     const [Loading, setLoading]=useState(false)
 
-    const [user, setUser] = useState({name:'' ,location:'',industry:'',cemail:'',cphn:'',supervisor:''})
+    const [user, setUser] = useState({name:'' ,location:'',industry:'',cemail:'',cphn:''})
 
     const handleChange = (e) => {
         const {name , value} = e.target
         setUser({...user,[name]:value})
     }
-
 
     const navigate = useNavigate()
 
@@ -39,7 +39,9 @@ const Company = () =>{
           const data = await response.json()
           if(response.ok){
             console.log(data.company)
-            navigate('/dashboard')
+            console.log(data.token)
+            localStorage.setItem('company',data.token)
+            navigate('/dashboard/internship')
           }else{
             console.log(data.message)
           }
@@ -50,6 +52,10 @@ const Company = () =>{
         setLoading(false)
       }
 
+      const goback=(e)=>{
+        e.preventDefault()
+        navigate('/dashboard')
+      }
 
 //Display ELements here
 
@@ -102,15 +108,10 @@ const Company = () =>{
                         <input type="text" name="cphn" value={user.cphn} onChange={handleChange}/>
                     </div>
                 </li>
-                <li>
-                    <div className="input-box">
-                        <span className='bx bxs-user'>Supervisor : </span>
-                        <input type="text" name="supervisor" value={user.supervisor} onChange={handleChange}/>
-                    </div>
-                </li>
-                <div>
-                    <center><button type="submit" className="btn" onClick={handleSubmit}>Submit</button></center>
-                </div>
+                <center>
+                    <button type="submit" className="btn" onClick={handleSubmit}>Submit</button>
+                    <button type="submit" className="btn" onClick={goback}>Go Back</button>
+                </center>
             </ul>
             </form>
         </div>)

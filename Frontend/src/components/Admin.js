@@ -7,7 +7,7 @@ import { AuthContext } from '../context/auth-context'
 const Admin = () =>{
     const [Loading, setLoading]=useState(false)
 
-    const [user, setUser] = useState({email:'' ,pass:''})
+    const [user, setUser] = useState({pass:''})
 
     const handleChange = (e) => {
         const {name , value} = e.target
@@ -31,8 +31,8 @@ const Admin = () =>{
           });
           const data = await response.json()
           if(response.ok){
-              localStorage.setItem('user',JSON.stringify(data.auth))
-              console.log(data.message,data.auth)
+              localStorage.setItem('admin',JSON.stringify(data.token))
+              console.log(data.message)
               navigate('/adminPage')
               return auth.adminLogin()
           }else{

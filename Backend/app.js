@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const usersRoutes = require('./routes/students-routes')
 const companyRoutes = require('./routes/company-routes')
+const internshipRoutes = require('./routes/internship-routes')
+const adminRoutes = require('./routes/admin-routes')
 const HttpError = require('./models/http-error')
 
 const app = express()
@@ -22,6 +24,8 @@ app.use((req,res,next)=>{
 
 app.use('/', usersRoutes)
 app.use('/dashboard',companyRoutes)
+app.use('/dashboard',internshipRoutes)
+app.use('/',adminRoutes)
 
 app.use((req,res,next)=>{
     throw new HttpError('Could not find this route.',404)

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 import './Signup.css'
+import './Dashboard.css'
 
 const Dashboard = () => {
     const [radio, setRadio] = useState(false)
@@ -18,11 +19,15 @@ const Dashboard = () => {
     function handleChange(e){
         setRadio(e.target.value)
     }
+    
 
     return(
-        <div className='wrapper'>
+        <div className='wrapper1'>
+            <div className='header'>
+                <h1>Dashboard</h1>
+            </div>
             <ul className='ul'>
-            <center><h1>Dashboard</h1></center>
+            <div className='body'>
             <h2>Name : <span className='span'>{user.name}</span></h2>
             <h2>Roll No. : <span className='span'>{user.roll}</span></h2>
             <h2>Division : <span className='span'>{user.divi}</span></h2>
@@ -33,7 +38,8 @@ const Dashboard = () => {
             <h2>Teacher : <span className='span'>{user.teacher}</span></h2>
             <h2>Phone No. : <span className='span'>{user.phn}</span></h2>
             <h2>Address : <span className='span'>{user.address}</span></h2>
-            <h2>Internship : 
+            <h2>Internships completed/ongoing : <span className='span'>{user.iid?.length}</span></h2>
+            <h2>Add new Internship? : 
                 <input 
                  id='yesOption'
                  type='radio' 
@@ -50,9 +56,9 @@ const Dashboard = () => {
                  value="No"/>No
             </h2>
             {radio ==='Yes' && <h2><center>
-                <Link to='/dashboard/company' className='link'>Company Details</Link>
-                <Link className='link'>Internship Details</Link>
+                <Link to='/dashboard/company' className='link'>Add Details</Link>
             </center></h2>}
+            </div>
             </ul>
         </div>
     )

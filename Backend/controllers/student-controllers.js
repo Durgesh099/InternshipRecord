@@ -40,8 +40,7 @@ const signup = async (req,res,next)=>{
         teacher,
         gender,
         phn,
-        address,
-        cid: []
+        address
     })
     try{
         await createdUser.save()

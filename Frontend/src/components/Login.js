@@ -5,6 +5,9 @@ import './Login.css'
 import { AuthContext } from '../context/auth-context'
 
 const Login = () =>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('company')
+
     const [Loading, setLoading]=useState(false)
 
     const [user, setUser] = useState({email:'' ,pass:''})
